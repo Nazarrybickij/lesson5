@@ -12,24 +12,21 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-
-
 class MainActivity : AppCompatActivity(), Adapter.AdapterCallback {
 
     lateinit var pref: SharedPreferences
     var cashTempSet = String()
     val myFragmentManager = supportFragmentManager
+
+
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val listFragment = ListFragment()
         var desFragment = DescriptionFragment()
-
         pref = getSharedPreferences(Cash.APP_PREFERENCES, MODE_PRIVATE)
         val cash = Cash(pref)
-
         title = cash.getCash()
         cashTempSet = cash.getCashTemp()
 
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity(), Adapter.AdapterCallback {
                 commit()
             }
             myFragmentManager.beginTransaction().run {
-                add(R.id.descriotion_fragmentland_view,desFragment,"des")
+                add(R.id.descriotion_fragmentland_view, desFragment, "des")
                 commit()
             }
         }
@@ -60,17 +57,17 @@ class MainActivity : AppCompatActivity(), Adapter.AdapterCallback {
             intent.putExtra("day", day)
             intent.putExtra("day", fragment.id)
             startActivity(intent)
-            fragment.addList(weatherWeek(output,position))
+            fragment.addList(weatherWeek(output, position))
             fragment.cashTempSet = cashTempSet
-            fragment.desAdapter.allDay = weatherWeek(output,position)
+            fragment.desAdapter.allDay = weatherWeek(output, position)
             fragment.desAdapter.cashTempSet = cashTempSet
             fragment.desAdapter.notifyDataSetChanged()
 
         } else {
 
-            fragment.addList(weatherWeek(output,position))
+            fragment.addList(weatherWeek(output, position))
             fragment.cashTempSet = cashTempSet
-            fragment.desAdapter.allDay = weatherWeek(output,position)
+            fragment.desAdapter.allDay = weatherWeek(output, position)
             fragment.desAdapter.cashTempSet = cashTempSet
             fragment.desAdapter.notifyDataSetChanged()
 
@@ -96,6 +93,7 @@ class MainActivity : AppCompatActivity(), Adapter.AdapterCallback {
         }
         return super.onOptionsItemSelected(item)
     }
+
     fun weatherWeek(intentList: ArrayList<ListWeather>, position: Int): ArrayList<ListWeather> {
         var curentList = ArrayList<ListWeather>()
         var count = 0
@@ -113,6 +111,7 @@ class MainActivity : AppCompatActivity(), Adapter.AdapterCallback {
 
         return curentList
     }
+
 
 }
 
